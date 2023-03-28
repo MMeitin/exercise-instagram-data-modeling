@@ -18,26 +18,35 @@ class Usuario(Base):
     fecha_de_nacimiento = Column(DateTime, nullable=False)
     biografia = Column(String(250))
 
+
+
 class Publicacion(Base):
     __tablename__ = 'publicacion'
     id = Column(Integer, primary_key=True)
     id_usuario = Column(Integer, ForeignKey('usuario.id'))
+    usuario = relationship('usuario')
     descripcion = Column(String(250))
     ubicacion = Column(String(250))
     fecha_y_hora_de_publicacion = Column(DateTime)
+
+
 
 class Comentario(Base):
     __tablename__ = 'comentario'
     id = Column(Integer, primary_key=True)
     id_publicacion = Column(Integer, ForeignKey('publicacion.id'))
+    publicacion = relationship('publicacion')
     id_usuario = Column(Integer, ForeignKey('usuario.id'))
+    usuario = relationship('usuario')
     texto_del_comentario = Column(String(250))
 
 class MeGusta(Base):
     __tablename__ = 'megusta'
     id = Column(Integer, primary_key=True)
     id_publicacion = Column(Integer, ForeignKey('publicacion.id'))
+    publicacion = relationship('publicacion')
     id_usuario = Column(Integer, ForeignKey('usuario.id'))
+    usuario = relationship('usuario')
 
     # Un usuario puede tener muchas publicaciones, pero una publicación solo puede pertenecer a un usuario. Por lo tanto, la tabla Publicación tiene una clave foránea que hace referencia a la tabla Usuario.
 
